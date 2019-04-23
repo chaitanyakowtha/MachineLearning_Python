@@ -21,7 +21,10 @@ class FrescobookshelfspiderSpider(scrapy.Spider):
 			ShortDescription = div.xpath('.//p[@class = "description"]/text()').extract()
 			ISBNNumber = div.xpath('.//p[@class = "isbn"]/text()').extract()
 			NumberOfVotes = div.xpath('.//p[@class = "votes"]/text()').extract()
-                        #Comments = []
+			 #CommentsClass = [re.sub(re.compile('[^c\d+]'),'',str(x)) for x in [re.findall(r'c\d+',p.get()) for p in div.xpath('p')]]
+			#Above code snippet gives some null elements also in list, whereas below code eliminates the nulls too
+			#CommentsClass = [temp for temp in [re.sub(re.compile('[^c\d+]'),'',str(x)) for x in [re.findall(r'c\d+',p.get()) for p in div.xpath('p')]] if len(temp)>0]
+			#
 			#Comments = "|".join(div.xpath('.//p[@class = "votes"]/text()').extract())
 			scraped_info = {'Title':Title,'Author':Author,'Genre':Genre,'NumberOfPages':NumberOfPages,
                                         'StarRating':StarRating,'NumberOfReviews':NumberOfReviews,'ShortDescription':ShortDescription,
